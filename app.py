@@ -6,33 +6,58 @@ st.set_option('deprecation.showfileUploaderEncoding',False)
 model = pickle.load(open('finalized_model.sav','rb'))
 
 
-st.title("The Place of AI in Tackling the Challenge of Malaria in Africa")
+st.title("")
+st.markdown("<h1 style='text-align: center; color: White;background-color:#e84343'>The Place of AI in Tackling the Challenge of Malaria in Africa</h1>", unsafe_allow_html=True)
 
-st.header("Slide to select malaria case predictors")
+st.header("")
+
+st.markdown("<h4 style='text-align: center; color: Black;'>Select variables to predict malaria incidence</h4>", unsafe_allow_html=True)
+st.text('')
+
+st.markdown('<p> <strong>Region:</strong> \
+            <ul> \
+            <li>Central Africa == 0 </li> \
+            <li>East Africa == 1</li> \
+            <li>North Africa == 2</li> \
+            <li>Southern Africa == 3</li> \
+            <li>West Africa == 4 </li> \
+            </ul> \
+        </p>' , unsafe_allow_html=True)
+
+st.text('')
+st.text('')
+region = st.selectbox(
+    'Select Region',
+    ('0', '1', '2', '3', '4'))
+
+st.write('You selected:', region)
 
 st.text('')
 
+st.markdown("<h4 style='text-align: center; color: Black;'>Use the slider to select optimal variables</h4>", unsafe_allow_html=True)
+
+
+st.text('')
 col1, col2 = st.columns(2)
 
 with col1:
-    region = st.slider("Region", 0.0, 4.0, 1.0)
-    incidence = st.slider("Incidence rate", 0.0, 585.5, 50.0)
-    itns = st.slider("% Use ITNs", 0.0, 95.5, 5.0)
-    child_fever = st.slider("% Child fever", 0.0, 76.9, 5.0)
-    ipt = st.slider("% IPT", 0.0, 59.6, 0.5)
+    rural_pop = st.slider("Rural population (%)", 0.0, 100.0, 5.0)
+    itns = st.slider('Use of insecticide-treated bed nets (% of under age 5 population)', 0.0, 100.0, 5.0)
+    ipt = st.slider('Intermittent preventive treatment (IPT) of malaria in pregnancy (% of pregnant women)', 0.0, 100.0, 5.0)
+    malaria_case = st.slider("Malaria cases", 0.0, 100.0, 5.0)
   
    
 with col2:
-    rural_pop = st.slider("% Rural pop", 0.0, 90.1, 5.0)
-    urban_pop = st.slider("% Urban pop", 0.0, 88.9, 5.0)    
-    dw_all = st.slider("% Basic DW all", 0.0, 99.9, 5.0)
-    san_all = st.slider("% Basic sanitation all", 0.0, 100.0, 5.0)
+    urban_pop = st.slider("Urban population (%)", 0.0, 100.0, 5.0)   
+    child_fever = st.slider('Children with fever receiving antimalarial drugs (% of children under age 5 with fever)', 0.0, 100.0, 5.0) 
+    dw_all = st.slider("Drinking Water (%)", 0.0, 100.0, 5.0)
+    san_all = st.slider("Sanitation (%)", 0.0, 100.0, 5.0)
 
 
 st.text('')
-if st.button("Predict Malaria Case"):
-    result = model.predict(np.array([[region, incidence, itns, child_fever, ipt, rural_pop, urban_pop, dw_all, san_all]]))
-    st.text(result[0])
+if st.button("Predict incidence of malaria (per 1,000 population at risk)"):
+    result = model.predict(np.array([[region, rural_pop, itns, ipt, malaria_case, urban_pop, child_fever, dw_all, san_all]]))
+    st.text(round(result[0],2))
 
 st.text('')
 st.text('')
