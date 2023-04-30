@@ -15,7 +15,7 @@ st.text('')
 col1, col2 = st.columns(2)
 
 with col1:
-    c_name = st.slider("Country Name", 0.0, 53.0, 1.0)
+    region = st.slider("Region", 0.0, 4.0, 1.0)
     incidence = st.slider("Incidence rate", 0.0, 585.5, 50.0)
     itns = st.slider("% Use ITNs", 0.0, 95.5, 5.0)
     child_fever = st.slider("% Child fever", 0.0, 76.9, 5.0)
@@ -31,7 +31,7 @@ with col2:
 
 st.text('')
 if st.button("Predict Malaria Case"):
-    result = model.predict(np.array([[c_name, incidence, itns, child_fever, ipt, rural_pop, urban_pop, dw_all, san_all]]))
+    result = model.predict(np.array([[region, incidence, itns, child_fever, ipt, rural_pop, urban_pop, dw_all, san_all]]))
     st.text(result[0])
 
 st.text('')
