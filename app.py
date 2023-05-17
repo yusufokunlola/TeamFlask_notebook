@@ -11,26 +11,9 @@ st.markdown("<h1 style='text-align: center; color: White;background-color:#e8434
 
 st.header("")
 
-st.markdown("<h4 style='text-align: center; color: Black;'>Select variables to predict malaria incidence</h4>", unsafe_allow_html=True)
-st.text('')
+region = st.selectbox('Region', ('Central Africa', 'East Africa', 'North Africa', 'Southern Africa', 'West Africa'))
+region = 0 if region == 'Central Africa' else 1 if region == 'East Africa' else 2 if region == 'North Africa' else 3 if region == 'Southern Africa' else 4
 
-st.markdown('<p> <strong>Region:</strong> \
-            <ul> \
-            <li>Central Africa == 0 </li> \
-            <li>East Africa == 1</li> \
-            <li>North Africa == 2</li> \
-            <li>Southern Africa == 3</li> \
-            <li>West Africa == 4 </li> \
-            </ul> \
-        </p>' , unsafe_allow_html=True)
-
-st.text('')
-st.text('')
-region = st.selectbox(
-    'Select Region',
-    ('0', '1', '2', '3', '4'))
-
-st.write('You selected:', region)
 
 st.text('')
 
