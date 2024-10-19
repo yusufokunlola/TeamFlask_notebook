@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pickle
 
-st.set_option('deprecation.showfileUploaderEncoding',False) 
+#st.set_option('deprecation.showfileUploaderEncoding',False) 
 model = pickle.load(open('finalized_model.sav','rb'))
 
 
